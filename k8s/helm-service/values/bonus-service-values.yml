@@ -1,7 +1,7 @@
 name: bonus
 container:
   name: bonus-service
-  image: gryteck/rsoi-bonus-service:latest
+  image: gryteck/rsoi-bonus-service:1
 env:
   - name: PORT
     value: "9080"
