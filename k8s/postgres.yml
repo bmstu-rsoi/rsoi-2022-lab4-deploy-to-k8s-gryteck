@@ -26,7 +26,7 @@ spec:
     - ReadWriteOnce  # Sets read and write access
   resources:
     requests:
-      storage: 1Gi  # Sets volume size
+      storage: 5Gi  # Sets volume size
 ---
 apiVersion: v1
 kind: Service

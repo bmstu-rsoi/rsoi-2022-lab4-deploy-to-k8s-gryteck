@@ -1,8 +1,8 @@
 spring:
   r2dbc:
-    url: r2dbc:postgresql://\${DATABASE_HOST}:\${DATABASE_PORT}/\${DATABASE_NAME}
-    password: \${DATABASE_PASSWORD}
-    username: \${DATABASE_USER}
+    url: r2dbc:postgresql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
+    password: ${DATABASE_PASSWORD}
+    username: ${DATABASE_USER}
 
 app.service:
   gateway:
