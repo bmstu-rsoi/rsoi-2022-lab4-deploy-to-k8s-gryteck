@@ -90,7 +90,26 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
-      # TODO deploy to k8s
+      - name: Deploy ingress
+        uses: actions-hub/kubectl@master
+        with:
+          args: apply -f k8s/ingress.yml k8s/postgres.yml k8s/main-db-configmap.yml k8s/secrets/postgresql-1-secret.yml
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+
+      - name: Deploy helm
+        uses: WyriHaximus/github-action-helm3@v2
+        with:
+          kubeconfig: '${{ secrets.KUBE_CONFIG }}'
+          exec: |
+            cd k8s
+            ./deployService.sh "upgrade --install --wait" config-service
+            ./deployService.sh "upgrade --install --wait" gateway-service
+            ./deployService.sh "upgrade --install --wait" bonus-service
+            ./deployService.sh "upgrade --install --wait" flight-service
+            ./deployService.sh "upgrade --install --wait" ticket-service
+            ./deployService.sh "upgrade --install --wait" user-service
+            cd ..
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
