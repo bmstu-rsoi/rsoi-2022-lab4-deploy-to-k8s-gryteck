@@ -111,6 +111,10 @@ jobs:
             ./deployService.sh "upgrade --install --wait" user-service
             cd ..
 
+      - name: Waiting 90s all services to start
+        run: sleep 90s
+        shell: bash
+
       - name: Run API Tests
         uses: matt-ball/newman-action@master
         with:
