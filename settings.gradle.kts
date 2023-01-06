@@ -1,4 +1,4 @@
-rootProject.name = "rsoi-2022-lab3-fault-tolerance-gryteck"
+rootProject.name = "rsoi-2022-lab4-deploy-to-k8s-gryteck"
 
 include("common")
 
