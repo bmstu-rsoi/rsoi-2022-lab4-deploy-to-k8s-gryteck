@@ -24,7 +24,73 @@ jobs:
       - name: Build and copy files for docker build
         run: ./gradlew copyJarToDocker
 
-      # publish to docker hub, deploy to k8s
+      - name: docker build push bonus-service
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: gryteck/rsoi-bonus-service
+          tags: 1.0
+          registry: docker.io
+          directory: docker-compose/bonus-service
+          dockerfile: docker-compose/bonus-service/Dockerfile
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: docker build push config-server
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: gryteck/rsoi-config-server
+          tags: 1.0
+          registry: docker.io
+          directory: docker-compose/config-server
+          dockerfile: docker-compose/config-server/Dockerfile
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: docker build push flight-service
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: gryteck/rsoi-flight-service
+          tags: 1.0
+          registry: docker.io
+          directory: docker-compose/flight-service
+          dockerfile: docker-compose/flight-service/Dockerfile
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: docker build push gateway
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: gryteck/rsoi-gateway
+          tags: 1.0
+          registry: docker.io
+          directory: docker-compose/gateway
+          dockerfile: docker-compose/gateway/Dockerfile
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: docker build push ticket-service
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: gryteck/rsoi-ticket-service
+          tags: 1.0
+          registry: docker.io
+          directory: docker-compose/ticket-service
+          dockerfile: docker-compose/ticket-service/Dockerfile
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: docker build push user-service
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: gryteck/rsoi-user-service
+          tags: 1.0
+          registry: docker.io
+          directory: docker-compose/user-service
+          dockerfile: docker-compose/user-service/Dockerfile
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      # TODO deploy to k8s
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
