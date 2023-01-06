@@ -95,7 +95,7 @@ jobs:
         with:
           args: apply -f k8s/main-db-configmap.yml -f k8s/secrets/postgresql-1-secret.yml -f k8s/postgres.yml -f k8s/ingress.yml
         env:
-          KUBE_CONTEXT: ${{ secrets.KUBE_CONFIG }}
+          KUBE_CONFIG: '${{ secrets.KUBE_CONFIG_ENC }}'
 
       - name: Deploy helm
         uses: WyriHaximus/github-action-helm3@v2
